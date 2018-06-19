@@ -17,24 +17,24 @@ public class App {
 		//引数チェック
 		//第1引数にはサブコマンドが渡されます。
 		// サブコマンドはencode・decode・alignのいずれかです。
-		if (args[0] == "encode") {
+		if ("encode".equals(args[0])) {
 			// サブコマンドがencodeの場合、引数には10進数の数値が渡されます。
-			if (!args[1].matches("^[0-9]*$")) {
-				System.out.println("Error!");
-				return;
-			}
-		} else if (args[0] == "decode") {
+			//if (!args[1].matches("^[0-9]*$")) {
+			//	System.out.println("Error06!");
+			//	return;
+			//}
+		} else if ("decode".equals(args[0])) {
 			// サブコマンドがdecodeまたはalignの場合、引数にはアルファベット数字が渡されます。
-			if (!args[1].matches("[B-I].[A-I]*$")) {
-				System.out.println("Error!");
-				return;
-			}
-		} else if (args[0] == "align") {
+			//if (!args[1].matches("[B-I].[A-I]*$")) {
+			//	System.out.println("Error07!");
+			//	return;
+			//}
+		} else if ("align".equals(args[0])) {
 			// サブコマンドがdecodeまたはalignの場合、引数にはアルファベット数字が渡されます。
-			if (!args[1].matches("[B-I],[A-I]*$")) {
-				System.out.println("Error!");
-				return;
-			}
+			//if (!args[1].matches("[B-I],[A-I]*$")) {
+			//	System.out.println("Error08!");
+			//	return;
+			//}
 		} else {
 			System.out.println("Error03!");
 			return;
@@ -45,7 +45,7 @@ public class App {
 		String resultStr = "";
 
 		//数字からの変換
-		if (args[0] == "encode") {
+		if ("encode".equals(args[0])) {
 			//10進数の数値をアルファベット数字に変換した結果を表示してください。
 			//int超える対応は面倒なのであきらめ…
 			try {
@@ -56,7 +56,7 @@ public class App {
 				System.out.println("Error04!");
 			}
 
-		} else if (args[0] == "decode") {
+		} else if ("decode".equals(args[0])) {
 
 			try {
 
