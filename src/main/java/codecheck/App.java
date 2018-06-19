@@ -79,7 +79,7 @@ public class App {
 						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7')
 						.replace('I', '8')) + addNum;
 
-				if (x > 8) {
+				if (x >= 8) {
 					addNum = 1;
 					returnStrungBuilder.append(Integer.toString(16 - x).replace('0', 'A').replace('1', 'B')
 							.replace('2', 'C').replace('3', 'D')
