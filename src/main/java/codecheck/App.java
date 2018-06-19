@@ -7,10 +7,10 @@ public class App {
 		//不正な引数が渡されることはありません。
 		//とはいえやっとかないと気持ち悪い
 		if (args == null) {
-			System.out.println("Error!");
+			System.out.println("Error01!");
 			return;
 		} else if (args.length != 2) {
-			System.out.println("Error!");
+			System.out.println("Error02!");
 			return;
 		}
 
@@ -36,7 +36,7 @@ public class App {
 				return;
 			}
 		} else {
-			System.out.println("Error!");
+			System.out.println("Error03!");
 			return;
 		}
 
@@ -53,7 +53,7 @@ public class App {
 				resultStr = encode(args[1]);
 
 			} catch (Exception e) {
-				System.out.println("Error!");
+				System.out.println("Error04!");
 			}
 
 		} else if (args[0] == "decode") {
@@ -63,7 +63,7 @@ public class App {
 				resultStr = decode(args[1]);
 
 			} catch (Exception e) {
-				System.out.println("Error!");
+				System.out.println("Error05!");
 			}
 
 		} else {
