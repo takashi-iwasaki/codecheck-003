@@ -69,15 +69,20 @@ public class App {
 		} else {
 			//引数のアルファベット数字に対して、合計の数字がすべてHになるような足し算の数式をアルファベット数字で表示してください。
 
-			//引数と同等の桁数のH埋め文字列を作成
-			String targetNum = "";
+			StringBuilder returnStrungBuilder = new StringBuilder();
+
 			for (int i = 0; i < args[1].length(); i++) {
-				targetNum = targetNum + "H";
+				returnStrungBuilder.append(Integer
+						.toString(8 - Integer.parseInt(args[1].substring(i, i + 1).replace('A', '0').replace('B', '1')
+								.replace('C', '2').replace('D', '3')
+								.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7')
+								.replace('I', '8')))
+						.replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
+						.replace('4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I'));
+
 			}
 
-			//作成した文字列と引数を10進数に戻し、差し引きした結果をさらに9進数に戻す
-
-			resultStr = encode(Integer.toString(Integer.parseInt(targetNum) - Integer.parseInt(decode(args[1]))));
+			resultStr = decode(returnStrungBuilder.toString());
 
 		}
 
@@ -88,22 +93,28 @@ public class App {
 
 	static private String encode(String num10) {
 
-		StringBuilder outStringBuilder = new StringBuilder();
-		String num9;
+		StringBuilder convertStringBuilder = new StringBuilder(num10);
+		int addNum = 0;
+		int taegrtNum = 0;
 
-		//まずは9進数(数字）に変換
-		int targetInt = Integer.parseInt(num10);
-		int amari = targetInt % 9;
-		int syou = targetInt / 9;
-		outStringBuilder.append(Integer.toString(amari));
-		//割り切れるまで繰り返す
-		while (syou != 0) {
-			amari = syou % 9;
-			outStringBuilder.append(Integer.toString(amari));
-			syou = syou / 9;
+		for (int i = 0; i < num10.length(); i++) {
+
+			taegrtNum = Integer.parseInt(num10.substring(i, i + 1)) + addNum;
+
+			if (taegrtNum >= 9) {
+				addNum = 1;
+				convertStringBuilder.append(taegrtNum - 9);
+
+			} else {
+				addNum = 0;
+				convertStringBuilder.append(taegrtNum);
+
+			}
+
 		}
-		//逆順に積まれてるので反転して正しい桁数にする
-		num9 = outStringBuilder.reverse().toString();
+
+		//終わったら反転
+		String num9 = convertStringBuilder.reverse().toString();
 
 		//アルファベットに変換
 		num9 = num9.replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
@@ -115,25 +126,35 @@ public class App {
 
 	static private String decode(String num9) {
 
-		StringBuilder outStringBuilder = new StringBuilder();
+		StringBuilder convertStringBuilder = new StringBuilder();
+		int addNum = 0;
+		int taegrtNum = 0;
 
-		//アルファベット数字を10進数に変換した結果を表示してください
-		//まずは9進数(数字）に変換
-		outStringBuilder = new StringBuilder(
+		StringBuilder tmpSB = new StringBuilder(
 				num9.replace('A', '0').replace('B', '1').replace('C', '2').replace('D', '3')
-						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7').replace('I', '8'));
-		//逆順処理するので反転
-		outStringBuilder = outStringBuilder.reverse();
+						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7').replace('I', '8'))
+								.reverse();
 
-		int resultNum = 0;
-		int omomiNum = 1;
-		//1ループごとに重みを乗算する
-		for (int i = 0; i < outStringBuilder.length(); i++) {
-			resultNum = resultNum + Integer.parseInt(outStringBuilder.substring(i, i + 1)) * omomiNum;
-			omomiNum = omomiNum * 9;
+		for (int i = 0; i < tmpSB.length(); i++) {
+
+			taegrtNum = Integer.parseInt(tmpSB.substring(i, i + 1)) + addNum;
+
+			if (i < tmpSB.length() - 1) {
+
+				if (taegrtNum <= 0) {
+					addNum = -1;
+					convertStringBuilder.append(9 + taegrtNum);
+				} else {
+					addNum = 0;
+					convertStringBuilder.append(taegrtNum);
+				}
+
+			}
+
 		}
+
 		//String変換
-		return Integer.toString(resultNum);
+		return convertStringBuilder.reverse().toString();
 
 	}
 
