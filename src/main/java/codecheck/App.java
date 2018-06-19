@@ -141,13 +141,13 @@ public class App {
 
 			if (i < tmpSB.length() - 1) {
 
-				if (taegrtNum <= 0) {
+				if (taegrtNum <= 0 && !tmpSB.substring(i + 1, tmpSB.length()).toString().matches("^[0]*$")) {
 					addNum = -1;
 					convertStringBuilder.append(9 + taegrtNum);
+				} else {
+					convertStringBuilder.append(taegrtNum);
 				}
-
 			} else {
-				addNum = 0;
 				convertStringBuilder.append(taegrtNum);
 			}
 
