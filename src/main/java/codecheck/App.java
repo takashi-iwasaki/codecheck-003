@@ -67,22 +67,42 @@ public class App {
 			}
 
 		} else {
-			//引数のアルファベット数字に対して、合計の数字がすべてHになるような足し算の数式をアルファベット数字で表示してください。
+			//引数のアルファベット数字に対して、合計の数字がすべてH(7)になるような足し算の数式をアルファベット数字で表示してください。
 
 			StringBuilder returnStrungBuilder = new StringBuilder();
+			int addNum = 0;
 
 			for (int i = 0; i < args[1].length(); i++) {
-				returnStrungBuilder.append(Integer
-						.toString(8 - Integer.parseInt(args[1].substring(i, i + 1).replace('A', '0').replace('B', '1')
-								.replace('C', '2').replace('D', '3')
-								.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7')
-								.replace('I', '8')))
-						.replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
-						.replace('4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I'));
+				//現在の桁を数に変換
+				int x = Integer.parseInt(args[1].substring(i, i + 1).replace('A', '0').replace('B', '1')
+						.replace('C', '2').replace('D', '3')
+						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7')
+						.replace('I', '8')) + addNum;
 
+				if (x > 8) {
+					addNum = 1;
+					returnStrungBuilder.append(Integer.toString(16 - x).replace('0', 'A').replace('1', 'B')
+							.replace('2', 'C').replace('3', 'D')
+							.replace('4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I'));
+				} else {
+					addNum = 0;
+					returnStrungBuilder.append(Integer.toString(7 - x).replace('0', 'A').replace('1', 'B')
+							.replace('2', 'C').replace('3', 'D')
+							.replace('4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I'));
+				}
 			}
 
-			resultStr = returnStrungBuilder.toString();
+			if (addNum == 1) {
+				returnStrungBuilder.append('G');
+			}
+
+			StringBuilder returnHStrungBuilder = new StringBuilder();
+
+			for (int i = 0; i < returnStrungBuilder.length(); i++) {
+				returnHStrungBuilder.append('H');
+			}
+
+			resultStr = args[1] + " + " + returnStrungBuilder.toString() + " = " + returnHStrungBuilder.toString();
 
 		}
 
