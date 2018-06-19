@@ -82,7 +82,7 @@ public class App {
 
 			}
 
-			resultStr = decode(returnStrungBuilder.toString());
+			resultStr = returnStrungBuilder.toString();
 
 		}
 
@@ -144,11 +144,11 @@ public class App {
 				if (taegrtNum <= 0) {
 					addNum = -1;
 					convertStringBuilder.append(9 + taegrtNum);
-				} else {
-					addNum = 0;
-					convertStringBuilder.append(taegrtNum);
 				}
 
+			} else {
+				addNum = 0;
+				convertStringBuilder.append(taegrtNum);
 			}
 
 		}
