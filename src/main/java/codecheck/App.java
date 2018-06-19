@@ -74,7 +74,8 @@ public class App {
 
 			for (int i = 0; i < args[1].length(); i++) {
 				//現在の桁を数に変換
-				int x = Integer.parseInt(args[1].substring(args[1].length() - (i+1), args[1].length() - i).replace('A', '0').replace('B', '1')
+				int x = Integer.parseInt(args[1].substring(args[1].length() - (i + 1), args[1].length() - i)
+						.replace('A', '0').replace('B', '1')
 						.replace('C', '2').replace('D', '3')
 						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7')
 						.replace('I', '8')) + addNum;
@@ -102,7 +103,16 @@ public class App {
 				returnHStrungBuilder.append('H');
 			}
 
-			resultStr = args[1] + " + " + returnStrungBuilder.reverse().toString() + " = " + returnHStrungBuilder.toString();
+			//先頭AはNG
+			if (returnStrungBuilder.substring(returnStrungBuilder.length() - 1, returnStrungBuilder.length()) == "A") {
+				returnStrungBuilder.delete(returnStrungBuilder.length() - 1, returnStrungBuilder.length());
+				returnStrungBuilder.append('I');
+				returnHStrungBuilder.append('H');
+
+			}
+
+			resultStr = args[1] + " + " + returnStrungBuilder.reverse().toString() + " = "
+					+ returnHStrungBuilder.toString();
 
 		}
 
