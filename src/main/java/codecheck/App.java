@@ -132,25 +132,46 @@ public class App {
 
 		StringBuilder tmpSB = new StringBuilder(
 				num9.replace('A', '0').replace('B', '1').replace('C', '2').replace('D', '3')
-						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7').replace('I', '8'))
-								.reverse();
+						.replace('E', '4').replace('F', '5').replace('G', '6').replace('H', '7').replace('I', '8'));
 
+		//重みづけして端数を下位に下す
 		for (int i = 0; i < tmpSB.length(); i++) {
-
-			taegrtNum = Integer.parseInt(tmpSB.substring(i, i + 1)) + addNum;
-
 			if (i < tmpSB.length() - 1) {
-
-				if (taegrtNum <= 0 && !tmpSB.substring(i + 1, tmpSB.length()).toString().matches("^[0]*$")) {
-					addNum = -1;
-					convertStringBuilder.append(9 + taegrtNum);
+				taegrtNum = Integer.parseInt(tmpSB.substring(i, i + 1)) + addNum;
+				if (taegrtNum >= 10) {
+					addNum = 1;
+					convertStringBuilder.append(taegrtNum - 10);
 				} else {
+					addNum = 0;
 					convertStringBuilder.append(taegrtNum);
 				}
 			} else {
-				convertStringBuilder.append(taegrtNum);
-			}
+				taegrtNum = Integer.parseInt(tmpSB.substring(i, i + 1)) * 9 + addNum;
 
+				addNum = taegrtNum % 10;
+				convertStringBuilder.append(taegrtNum / 10);
+			}
+		}
+
+		//1桁目が超えてしまったら逆順処理で繰り上げる
+		if (addNum != 0) {
+			tmpSB = convertStringBuilder.reverse();
+			convertStringBuilder = new StringBuilder();
+
+			for (int i = 0; i < tmpSB.length(); i++) {
+				if (i == 0) {
+					convertStringBuilder.append(tmpSB.substring(i, i + 1));
+				} else {
+					taegrtNum = Integer.parseInt(tmpSB.substring(i, i + 1)) + addNum;
+					if (taegrtNum >= 10) {
+						addNum = 1;
+						convertStringBuilder.append(taegrtNum - 10);
+					} else {
+						addNum = 0;
+						convertStringBuilder.append(taegrtNum);
+					}
+				}
+			}
 		}
 
 		//String変換
